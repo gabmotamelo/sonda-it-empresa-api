@@ -17,12 +17,12 @@ public class Empresa {
     private Long id;
 
     @Column(nullable = false, unique = true)
-    private String name;
+    private String nome;
 
     private String email;
 
     @Column(nullable = false)
-    private String company;
+    private String empresa;
 
     @Column(nullable = false)
     private String cnpj;
