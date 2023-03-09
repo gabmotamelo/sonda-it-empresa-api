@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import sonda.it.empresaapi.dto.request.EmpresaDTO;
+import sonda.it.empresaapi.dto.response.MessageResponseDTO;
 import sonda.it.empresaapi.entity.Empresa;
 import sonda.it.empresaapi.repository.EmpresaRepository;
 
@@ -26,6 +27,11 @@ public class EmpresaService {
         return toDTO(empresa);
     }
 
+    public List<EmpresaDTO> findAllByOrderByNameAsc() {
+        List<Empresa> empresas = empresaRepository.findAllByOrderByNameAsc();
+        return empresas.stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
     private EmpresaDTO toDTO(Empresa empresa) {
         EmpresaDTO empresaDTO = new EmpresaDTO();
         empresaDTO.setId(empresa.getId());
@@ -44,6 +50,13 @@ public class EmpresaService {
         empresa.setEmpresa(empresa.getEmpresa());
         empresa.setCnpj(empresa.getCnpj());
         return empresa;
+    }
+
+    private MessageResponseDTO createMessageResponse(Long id, String message) {
+        return MessageResponseDTO
+                .builder()
+                .message(message + id)
+                .build();
     }
 
 }

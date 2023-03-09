@@ -27,8 +27,8 @@ public class EmpresaController {
         return empresaService.findById(id);
     }
 
-//    @GetMapping("/order-by-name-asc")
-//    public List<EmpresaDTO> findAllByOrderByNameAsc() {
-//        return empresaService.findAllByOrderByNameAsc();
-//    }
+    @GetMapping("/order-by-name-asc")
+    public List<EmpresaDTO> findAllByOrderByNameAsc() {
+        return empresaService.findAllByOrderByNameAsc();
+    }
 }
