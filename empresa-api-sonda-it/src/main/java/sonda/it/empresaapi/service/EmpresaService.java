@@ -21,6 +21,11 @@ public class EmpresaService {
         return empresas.stream().map(this::toDTO).collect(Collectors.toList());
     }
 
+    public EmpresaDTO findById(Long id) {
+        Empresa empresa = empresaRepository.findById(id).orElseThrow(() -> new RuntimeException("Empresa não encontrada."));
+        return toDTO(empresa);
+    }
+
     private EmpresaDTO toDTO(Empresa empresa) {
         EmpresaDTO empresaDTO = new EmpresaDTO();
         empresaDTO.setId(empresa.getId());

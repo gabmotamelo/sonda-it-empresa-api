@@ -22,11 +22,11 @@ public class EmpresaController {
         return empresaService.findAll();
     }
 
-//    @GetMapping("/{id}")
-//    public EmpresaDTO findById(@PathVariable Long id) {
-//        return empresaService.findById(id);
-//    }
-//
+    @GetMapping("/{id}")
+    public EmpresaDTO findById(@PathVariable Long id) {
+        return empresaService.findById(id);
+    }
+
 //    @GetMapping("/order-by-name-asc")
 //    public List<EmpresaDTO> findAllByOrderByNameAsc() {
 //        return empresaService.findAllByOrderByNameAsc();
