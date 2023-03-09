@@ -2,10 +2,12 @@ package sonda.it.empresaapi.service;
 
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import sonda.it.empresaapi.dto.request.EmpresaDTO;
 import sonda.it.empresaapi.dto.response.MessageResponseDTO;
 import sonda.it.empresaapi.entity.Empresa;
+import sonda.it.empresaapi.expection.EmpresaNotFoundException;
 import sonda.it.empresaapi.repository.EmpresaRepository;
 
 import java.util.List;
@@ -23,40 +25,28 @@ public class EmpresaService {
     }
 
     public EmpresaDTO findById(Long id) {
-        Empresa empresa = empresaRepository.findById(id).orElseThrow(() -> new RuntimeException("Empresa não encontrada."));
+        Empresa empresa = empresaRepository.findById(id).orElseThrow(() -> new RuntimeException("Empresa não encontrada"));
         return toDTO(empresa);
     }
 
-    public List<EmpresaDTO> findAllByOrderByNameAsc() {
-        List<Empresa> empresas = empresaRepository.findAllByOrderByNameAsc();
+    public List<EmpresaDTO> findAllByOrderByNomeAsc() {
+        List<Empresa> empresas = empresaRepository.findAll(Sort.by(Sort.Direction.ASC, "nome"));
         return empresas.stream().map(this::toDTO).collect(Collectors.toList());
     }
 
     private EmpresaDTO toDTO(Empresa empresa) {
-        EmpresaDTO empresaDTO = new EmpresaDTO();
-        empresaDTO.setId(empresa.getId());
-        empresaDTO.setNome(empresa.getNome());
-        empresaDTO.setEmail(empresa.getEmail());
-        empresaDTO.setEmpresa(empresa.getEmpresa());
-        empresa.setCnpj(empresa.getCnpj());
-        return empresaDTO;
+        return new EmpresaDTO(empresa.getId(), empresa.getNome(), empresa.getEmail(), empresa.getEmpresa(), empresa.getCnpj());
     }
 
     private Empresa toModel(EmpresaDTO empresaDTO){
-        Empresa empresa = new Empresa();
-        empresa.setId(empresaDTO.getId());
-        empresa.setNome(empresa.getNome());
-        empresa.setEmail(empresa.getEmail());
-        empresa.setEmpresa(empresa.getEmpresa());
-        empresa.setCnpj(empresa.getCnpj());
-        return empresa;
+        return new Empresa(empresaDTO.getId(), empresaDTO.getNome(), empresaDTO.getEmail(), empresaDTO.getEmpresa(), empresaDTO.getCnpj());
     }
-
-    private MessageResponseDTO createMessageResponse(Long id, String message) {
-        return MessageResponseDTO
-                .builder()
-                .message(message + id)
-                .build();
-    }
+//
+//    private MessageResponseDTO createMessageResponse(Long id, String message) {
+//        return MessageResponseDTO
+//                .builder()
+//                .message(message + id)
+//                .build();
+//    }
 
 }

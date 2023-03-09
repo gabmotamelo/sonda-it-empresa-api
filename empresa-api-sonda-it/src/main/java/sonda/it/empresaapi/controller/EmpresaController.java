@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import sonda.it.empresaapi.dto.request.EmpresaDTO;
+import sonda.it.empresaapi.expection.EmpresaNotFoundException;
 import sonda.it.empresaapi.service.EmpresaService;
 
 import java.util.List;
@@ -23,12 +24,12 @@ public class EmpresaController {
     }
 
     @GetMapping("/{id}")
-    public EmpresaDTO findById(@PathVariable Long id) {
+    public EmpresaDTO findById(@PathVariable Long id) throws EmpresaNotFoundException {
         return empresaService.findById(id);
     }
 
     @GetMapping("/order-by-name-asc")
-    public List<EmpresaDTO> findAllByOrderByNameAsc() {
-        return empresaService.findAllByOrderByNameAsc();
+    public List<EmpresaDTO> findAllByOrderByNomeAsc() {
+        return empresaService.findAllByOrderByNomeAsc();
     }
 }
