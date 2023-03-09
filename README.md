@@ -6,3 +6,4 @@
 ![Badge](https://img.shields.io/static/v1?label=postman&message=testing+apis&color=orange&style=for-the-badge&logo=POSTMAN)
 ![Badge](https://img.shields.io/static/v1?label=swagger&message=api+documentation&color=green&style=for-the-badge&logo=SWAGGER)
 
+[Link do Swagger UI](http://localhost:8080/swagger-ui/index.html)
