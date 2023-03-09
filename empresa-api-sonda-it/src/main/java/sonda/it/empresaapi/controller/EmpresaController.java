@@ -32,4 +32,10 @@ public class EmpresaController {
     public List<EmpresaDTO> findAllByOrderByNomeAsc() {
         return empresaService.findAllByOrderByNomeAsc();
     }
+
+    @GetMapping("/order-by-name-desc")
+    public List<EmpresaDTO> findAllByOrderByNomeDesc() {
+        return empresaService.findAllByOrderByNomeDesc();
+    }
+
 }

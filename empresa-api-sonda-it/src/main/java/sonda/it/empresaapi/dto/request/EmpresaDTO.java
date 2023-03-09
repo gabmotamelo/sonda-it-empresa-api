@@ -26,6 +26,6 @@ public class EmpresaDTO {
     private String empresa;
 
     @NotEmpty
-    @Size(min = 2, max = 50)
+    @Size(min = 14, max = 18)
     private String cnpj;
 }

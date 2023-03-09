@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import sonda.it.empresaapi.dto.request.EmpresaDTO;
-import sonda.it.empresaapi.dto.response.MessageResponseDTO;
 import sonda.it.empresaapi.entity.Empresa;
 import sonda.it.empresaapi.expection.EmpresaNotFoundException;
 import sonda.it.empresaapi.repository.EmpresaRepository;
@@ -24,8 +23,8 @@ public class EmpresaService {
         return empresas.stream().map(this::toDTO).collect(Collectors.toList());
     }
 
-    public EmpresaDTO findById(Long id) {
-        Empresa empresa = empresaRepository.findById(id).orElseThrow(() -> new RuntimeException("Empresa não encontrada"));
+    public EmpresaDTO findById(Long id) throws EmpresaNotFoundException {
+        Empresa empresa = empresaRepository.findById(id).orElseThrow(() -> new EmpresaNotFoundException(id));
         return toDTO(empresa);
     }
 
@@ -34,19 +33,18 @@ public class EmpresaService {
         return empresas.stream().map(this::toDTO).collect(Collectors.toList());
     }
 
-    private EmpresaDTO toDTO(Empresa empresa) {
+    public List<EmpresaDTO> findAllByOrderByNomeDesc() {
+        List<Empresa> empresas = empresaRepository.findAll(Sort.by(Sort.Direction.DESC, "nome"));
+        return empresas.stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+    public EmpresaDTO toDTO(Empresa empresa) {
         return new EmpresaDTO(empresa.getId(), empresa.getNome(), empresa.getEmail(), empresa.getEmpresa(), empresa.getCnpj());
     }
 
-    private Empresa toModel(EmpresaDTO empresaDTO){
+    public Empresa toModel(EmpresaDTO empresaDTO){
         return new Empresa(empresaDTO.getId(), empresaDTO.getNome(), empresaDTO.getEmail(), empresaDTO.getEmpresa(), empresaDTO.getCnpj());
     }
-//
-//    private MessageResponseDTO createMessageResponse(Long id, String message) {
-//        return MessageResponseDTO
-//                .builder()
-//                .message(message + id)
-//                .build();
-//    }
+
 
 }
