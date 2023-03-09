@@ -18,12 +18,12 @@ public class EmpresaDTO {
 
     @NotEmpty
     @Size(min = 2, max = 100)
-    private String name;
+    private String nome;
 
     private String email;
 
     @NotEmpty
-    private String company;
+    private String empresa;
 
     @NotEmpty
     @Size(min = 2, max = 50)
